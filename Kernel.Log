@@ -1,18 +1,18 @@
 ETH Oberon / Linux X86 2015-12-11
-StackOrg  FF96C9F0
+StackOrg  FFFE4040
 08053EF8 Modules
 08051788 Files
 0804C0E8 Kernel
 080491B8 Linux0
-Heap growing:  095E7000 0A5E7000
+Heap growing:  08146000 09146000
 (GC 0ms CG)
 CmdLine: 1 ./olx
 OTRACE= not found
-095F8008 System
-095FDA28 FileDir
-095FEE08 Objects
-09604A88 Display
-0960D7D8 Input
+08157008 System
+0815CA28 FileDir
+0815DE08 Objects
+08163A88 Display
+0816C7D8 Input
 TERM=xterm-256color
 SSH_CONNECTION= not found
 XAUTHORITY=/home/heiko/.Xauthority
@@ -23,80 +23,230 @@ OHEIGHT=1350
 00000085 BIG-REQUESTS success
 OSHM= not found
 00000082 MIT-SHM success
-09613518 Fonts
+08172518 Fonts
 FontConv= not found
-096155F8 Viewers
-09617718 Reals
-09619098 Texts
-096212F8 Oberon
+081745F8 Viewers
+08176718 Reals
+08178098 Texts
+081802F8 Oberon
 Color= not found
 MB= not found
-096272B8 TextFrames
-0962E208 MenuViewers
-096390D8 Script
-0963E3E8 ScriptFrames
-09648798 Styles
-0964D3D8 Printer
-0964F308 Pictures
-09652188 Bitmaps
-09664808 Out
-09666148 Centronics
-09666958 V24
+081862B8 TextFrames
+0818D208 MenuViewers
+081980D8 Script
+0819D3E8 ScriptFrames
+081A7798 Styles
+081AC3D8 Printer
+081AE308 Pictures
+081B1188 Bitmaps
+081C3808 Out
+081C5148 Centronics
+081C5958 V24
 Default8.Scn.Fnt not present
 Warning: KeyState currently not implemented in Display.
+(GC 1ms CG)
+081D13A8 Edit
 (GC 0ms CG)
-(GC 0ms CG)
-09671E68 XCompiler
-096780D8 OPP
-096833F8 OPT
-0968AA88 OPS
-0968D248 OPM
-09696A38 OPB
-096A13D8 OPA
-096A9DA8 OPV
-096B0CC8 OPL
-096DA9B8 OPO
-096E8388 OPC
+081D6268 XCompiler
+081DC4D8 OPP
+081E77F8 OPT
+081EEE88 OPS
+081F1668 OPM
+081FAE58 OPB
+082057F8 OPA
+0820E1C8 OPV
+082150E8 OPL
+0823EDD8 OPO
+0824C7A8 OPC
 (GC 1ms CG)
 (GC 0ms CG)
-x86/Hello.Obj not present
-09720838 Hello
 (GC 0ms CG)
-(GC 0ms CG)
-(GC 0ms CG)
-x86/qmMyfirst.Obj not present
-09756E48 qmMyfirst
-09757778 DayTime
-097589D8 NetSystem
-0975DB68 NetBase
-0975F388 NetPorts
-0975FE78 NetIP
-097638A8 NetUDP
-09764F48 NetTCP
-0976ACD8 NetDNS
-0976DFF8 Strings
-09773428 Dates
-09776E58 In
-09778F08 Edit
-(GC 1ms CG)
-qMyfirst.Txt not present
-qMyfirst.Txt not present
-(GC 1ms CG)
-(GC 1ms CG)
 (GC 0ms CG)
 (GC 1ms CG)
 (GC 1ms CG)
 (GC 1ms CG)
 (GC 1ms CG)
-x86/UserGuide.Obj not present
-Modules: x86/UserGuide.Obj not found
+Modules: qTest not found
+082D02B8 qTest
+082D0A08 qLib
+082D21A8 qMyfirst
+082D2AD8 DayTime
+082D3D38 NetSystem
+082D8F88 NetBase
+082DA788 NetPorts
+082DB278 NetIP
+082DECA8 NetUDP
+082E0348 NetTCP
+082E60D8 NetDNS
+082F6D38 Strings
+082FC168 Dates
+082FFB78 In
+08301678 Hello
+(GC 2ms CG)
+(GC 2ms CG)
+(GC 1ms CG)
 (GC 1ms CG)
 (GC 1ms CG)
 (GC 2ms CG)
 (GC 1ms CG)
 (GC 2ms CG)
+(GC 2ms CG)
+(GC 1ms CG)
 (GC 1ms CG)
 (GC 0ms CG)
 (GC 1ms CG)
 (GC 1ms CG)
-Closing Display.
+(GC 0ms CG)
+(GC 0ms CG)
+Modules: System.Commands command not found
+Modules: System.Commands command not found
+Modules: System.Command command not found
+(GC 0ms CG)
+0825E458 XBrowser
+(GC 1ms CG)
+(GC 1ms CG)
+(GC 2ms CG)
+(GC 2ms CG)
+(GC 2ms CG)
+(GC 2ms CG)
+(GC 1ms CG)
+(GC 1ms CG)
+(GC 2ms CG)
+(GC 2ms CG)
+(GC 1ms CG)
+(GC 2ms CG)
+(GC 2ms CG)
+(GC 1ms CG)
+(GC 1ms CG)
+(GC 1ms CG)
+(GC 1ms CG)
+(GC 1ms CG)
+(GC 1ms CG)
+(GC 2ms CG)
+(GC 1ms CG)
+(GC 1ms CG)
+(GC 1ms CG)
+(GC 1ms CG)
+(GC 1ms CG)
+(GC 2ms CG)
+(GC 1ms CG)
+(GC 1ms CG)
+(GC 2ms CG)
+(GC 1ms CG)
+(GC 2ms CG)
+(GC 2ms CG)
+(GC 2ms CG)
+(GC 1ms CG)
+(GC 1ms CG)
+(GC 1ms CG)
+(GC 1ms CG)
+Modules: Edit.Tool command not found
+(GC 2ms CG)
+(GC 1ms CG)
+(GC 0ms CG)
+(GC 1ms CG)
+(GC 2ms CG)
+(GC 2ms CG)
+(GC 1ms CG)
+(GC 1ms CG)
+(GC 1ms CG)
+(GC 1ms CG)
+(GC 2ms CG)
+(GC 2ms CG)
+(GC 1ms CG)
+(GC 2ms CG)
+(GC 2ms CG)
+(GC 2ms CG)
+(GC 1ms CG)
+(GC 1ms CG)
+(GC 1ms CG)
+(GC 10ms CG)
+(GC 10ms CG)
+(GC 0ms CG)
+Modules: qTest not found
+Modules: qLib not found
+(GC 1ms CG)
+(GC 0ms CG)
+(GC 1ms CG)
+(GC 1ms CG)
+(GC 6ms CG)
+(GC 1ms CG)
+x86/qLib.Obj not present
+(GC 0ms CG)
+(GC 0ms CG)
+x86/qTest.Obj not present
+08292BE8 qTest
+082936F8 qLib
+(GC 1ms CG)
+(GC 1ms CG)
+(GC 1ms CG)
+(GC 1ms CG)
+(GC 1ms CG)
+(GC 2ms CG)
+(GC 40ms CG)
+(GC 1ms CG)
+(GC 1ms CG)
+(GC 1ms CG)
+(GC 1ms CG)
+(GC 1ms CG)
+(GC 1ms CG)
+(GC 1ms CG)
+(GC 1ms CG)
+(GC 1ms CG)
+(GC 1ms CG)
+(GC 1ms CG)
+(GC 2ms CG)
+(GC 1ms CG)
+(GC 1ms CG)
+(GC 1ms CG)
+(GC 0ms CG)
+(GC 1ms CG)
+(GC 1ms CG)
+(GC 1ms CG)
+(GC 1ms CG)
+(GC 1ms CG)
+(GC 1ms CG)
+(GC 0ms CG)
+(GC 0ms CG)
+(GC 1ms CG)
+(GC 10ms CG)
+(GC 1ms CG)
+(GC 1ms CG)
+(GC 1ms CG)
+(GC 1ms CG)
+(GC 10ms CG)
+(GC 1ms CG)
+(GC 9ms CG)
+(GC 0ms CG)
+Modules: qTest not found
+Modules: qLib not found
+(GC 1ms CG)
+(GC 1ms CG)
+(GC 0ms CG)
+(GC 1ms CG)
+(GC 9ms CG)
+(GC 10ms CG)
+(GC 1ms CG)
+x86/qLib.Obj not present
+(GC 1ms CG)
+(GC 0ms CG)
+x86/qTest.Obj not present
+08292928 qTest
+082937B8 qLib
+(GC 1ms CG)
+(GC 1ms CG)
+(GC 1ms CG)
+(GC 0ms CG)
+(GC 5ms CG)
+(GC 1ms CG)
+x86/qLib.Obj not present
+(GC 1ms CG)
+(GC 0ms CG)
+x86/qTest.Obj not present
+08291458 qTest
+082936B8 qLib
+(GC 2ms CG)
+(GC 1ms CG)
+(GC 1ms CG)
+(GC 1ms CG)
+(GC 1ms CG)
