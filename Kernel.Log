@@ -1,51 +1,102 @@
 ETH Oberon / Linux X86 2015-12-11
-StackOrg  FFD02410
+StackOrg  FF96C9F0
 08053EF8 Modules
 08051788 Files
 0804C0E8 Kernel
 080491B8 Linux0
-Heap growing:  0A055000 0B055000
+Heap growing:  095E7000 0A5E7000
 (GC 0ms CG)
 CmdLine: 1 ./olx
 OTRACE= not found
-0A066008 System
-0A06BA28 FileDir
-0A06CE08 Objects
-0A072A88 Display
-0A07B7D8 Input
-TERM=xterm
+095F8008 System
+095FDA28 FileDir
+095FEE08 Objects
+09604A88 Display
+0960D7D8 Input
+TERM=xterm-256color
 SSH_CONNECTION= not found
-XAUTHORITY=/u/inky/.Xauthority
-DISPLAY=:0
+XAUTHORITY=/home/heiko/.Xauthority
+DISPLAY=:0.0
 The X.Org Foundation
-OWIDTH=2000
-OHEIGHT=1300
+OWIDTH=2550
+OHEIGHT=1350
 00000085 BIG-REQUESTS success
 OSHM= not found
 00000082 MIT-SHM success
-0A081518 Fonts
+09613518 Fonts
 FontConv= not found
-0A0835F8 Viewers
-0A085718 Reals
-0A087098 Texts
-0A08F2F8 Oberon
+096155F8 Viewers
+09617718 Reals
+09619098 Texts
+096212F8 Oberon
 Color= not found
 MB= not found
-0A0952B8 TextFrames
-0A09C208 MenuViewers
-0A0A7058 Script
-0A0AC368 ScriptFrames
-0A0B6718 Styles
-0A0BB358 Printer
-0A0BD288 Pictures
-0A0C0108 Bitmaps
-0A0D2788 Out
-0A0D40C8 Centronics
-0A0D48D8 V24
+096272B8 TextFrames
+0962E208 MenuViewers
+096390D8 Script
+0963E3E8 ScriptFrames
+09648798 Styles
+0964D3D8 Printer
+0964F308 Pictures
+09652188 Bitmaps
+09664808 Out
+09666148 Centronics
+09666958 V24
 Default8.Scn.Fnt not present
 Warning: KeyState currently not implemented in Display.
 (GC 0ms CG)
-0A070128 Client
-0A078838 Internet
+(GC 0ms CG)
+09671E68 XCompiler
+096780D8 OPP
+096833F8 OPT
+0968AA88 OPS
+0968D248 OPM
+09696A38 OPB
+096A13D8 OPA
+096A9DA8 OPV
+096B0CC8 OPL
+096DA9B8 OPO
+096E8388 OPC
+(GC 1ms CG)
+(GC 0ms CG)
+x86/Hello.Obj not present
+09720838 Hello
 (GC 0ms CG)
 (GC 0ms CG)
+(GC 0ms CG)
+x86/qmMyfirst.Obj not present
+09756E48 qmMyfirst
+09757778 DayTime
+097589D8 NetSystem
+0975DB68 NetBase
+0975F388 NetPorts
+0975FE78 NetIP
+097638A8 NetUDP
+09764F48 NetTCP
+0976ACD8 NetDNS
+0976DFF8 Strings
+09773428 Dates
+09776E58 In
+09778F08 Edit
+(GC 1ms CG)
+qMyfirst.Txt not present
+qMyfirst.Txt not present
+(GC 1ms CG)
+(GC 1ms CG)
+(GC 0ms CG)
+(GC 1ms CG)
+(GC 1ms CG)
+(GC 1ms CG)
+(GC 1ms CG)
+x86/UserGuide.Obj not present
+Modules: x86/UserGuide.Obj not found
+(GC 1ms CG)
+(GC 1ms CG)
+(GC 2ms CG)
+(GC 1ms CG)
+(GC 2ms CG)
+(GC 1ms CG)
+(GC 0ms CG)
+(GC 1ms CG)
+(GC 1ms CG)
+Closing Display.
