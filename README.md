@@ -1,6 +1,6 @@
 ## README.md
 
-These files are exported via command 'qTest.Export' from a running OLR.
+Files in directory `nosee` are exported via command `qTest.Export` from a running OLR.
 
 see directory: nosee/
 
