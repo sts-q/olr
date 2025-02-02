@@ -1,0 +1,38 @@
+MODULE qOberonX;
+IMPORT T :=qTypes;
+
+
+PROCEDURE Upcase* (a: T.String): T.String;
+VAR i: INTEGER;
+BEGIN
+   i := 0;
+   WHILE a[i] # 0X DO
+      IF (a[i] >= "a") & (a[i] <= "z") THEN
+         a[i] := CAP (a[i]);
+      END;
+      INC (i);
+   END;
+   RETURN a;
+END Upcase;
+
+PROCEDURE UpcaseLine* (a: T.Line): T.Line;
+VAR i: INTEGER;
+BEGIN
+   i := 0;
+   WHILE a[i] # 0X DO
+      IF (a[i] >= "a") & (a[i] <= "z") THEN
+         a[i] := CAP (a[i]);
+      END;
+      INC (i);
+   END;
+   RETURN a;
+END UpcaseLine;
+(*
+PROCEDURE "++" * (a,b: T.Line): T.Line;
+VAR i,j: T.Int;
+BEGIN
+   RETURN b;
+END "++";
+*)
+
+END qOberonX.

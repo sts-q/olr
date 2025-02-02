@@ -1,0 +1,146 @@
+## :file: qNotes.Txt
+=====================================================
+## :section:      notes
+Lib                              atLineStart
+olr                              save all
+olr                              macro: free compile exec
+olr                              keybinding
+plaintext                       import / export
+host-clipboard                via xclip, symlink, plus-x
+
+Edit.Store                        needed to save to disk. Files are in olr-directory in Linux.
+src/forobi/main.py             does remove oberons file header and replace 0x0D with 0x0A, so we can read and edit files written with oberon on linux.
+XCompier.Compile */s        to recompile files, either via F1-* Viewers or via right-click-marked-text and middle-click.
+XCompiler.Compile */s       recompile from viewer
+XCompiler.Compile ^/s       recompile from file (save file first)
+
+# ---------------------------------------------------
+##  :section:   files
+qTypes.Mod
+qLib.Mod
+qOberonX.Mod
+qTest.Mod
+qMyfirst.Mod
+Hello.Mod
+
+qFiles.Txt
+qNotes.Txt
+qMessage.Txt
+qScratch.Txt
+
+UserGuide.Text         # How to use Oberon  -- A Quick Tutorial
+System.Text             # Oberon -- Startup Greeting
+
+Out.Mod
+Client.Mod
+Internet.Mod
+Linux0.Mod
+NetTCP.Mod
+
+# ---------------------------------------------------
+##  :section:   keyboard
+F1                           Mark viewer *
+F2                           Clear * marks
+F7                           Init color palette
+F8                           Switch back to old mouse-style (3-buttons)
+F9                           Redraw all viewers
+Ctrl-c                       interrupt IO
+Ctrl-c Cltr-c               interrupt anything
+B2                           exec Command
+B2B1                        reload and exec
+
+
+# ---------------------------------------------------
+## :section:    mouse
+B3B1                           delete text
+B3B2                           copy text
+[delete-setMark-Recall]      copy text
+DragB1B2                      move viewer
+DragB1                         resize viewer
+
+# ---------------------------------------------------
+## :section:    command language
+My.Cmd ^                  read first word from selection
+My.Cmd @                  read selection until it's end
+My.Cmd ~                  read this line until ~
+!My.Cmd ...                  command disabled (no spc)
+
+
+# ---------------------------------------------------
+## :section:    macros
+EditKeys.Tool               description of all this
+EditKeys.Definitions (^)   list macros
+
+(* =========================================================================== *)
+## :section: Configuration
+Edit.Mod
+CONST StandardMenu = "System.Close System.Copy ... Edit.Store"   # config commands of editor viewer
+
+
+(* =========================================================================== *)
+## :chapter: NETWORK
+Internet.Mod               Accept() Bind() Close() Connect() Listen() OpenSocket() Receive() Send() SetAddress()
+Client.Mod                 Client.Connect
+
+at host say:  
+      nc -l -p 8080         # listen at port
+
+
+(* =========================================================================== *)
+ARM.OberonErrors.Text
+AppendA.Text               Configuring the System
+AppendB.Text               Extended Language and Compiler for PC Native Oberon
+AppendC.Text               How to get Oberon System 3
+Biblio.Text
+Chapter0.Text
+Chapter1.Text               Intro and tour de chapter
+Chapter2.Text               Text Interface
+Chapter3.Text               The Gadgets User Interface
+Chapter4.Text               The Standard Gadgets Reference
+Chapter5.Text               Programming in Oberon
+Chapter6.Text               Applications
+Chapter7.Text               Oberon X: extending Oberon to allow user defined operators
+Dim3Guide.Text
+ETGuide.Text
+EditKeys.Text
+Feedback.Text
+GadgetsChanges.Text
+GameSummary.Text
+Images.Text
+Index.Text
+IntroToGadgets.Text
+Introduction.Text
+Kornkreise.Text
+LeoConfig.Text
+Leonardo.Text
+LoadGadgets.Text
+News.Text
+OROP2Errors.Text
+OType.Text
+Oberon.Text
+PSHeader.Text
+PowerDoc.Text
+PowerDoc1.Text
+PowerDoc2.Text
+References.Text
+Rel.Oberon.Text
+SavePoints.Text
+SaveScreen.Text
+ScriptGuide.Text
+System.Text                  Hello Oberon Text
+Temp.Text
+TextPopups.Text
+UserGuide.Text               How to use Oberon -- A Quick Tutorial
+Vinci.Text
+
+OPL.Mod                     OPL -  low level code gereration, translated from RISC to 80386 (back end)
+OPM.Mod                    OPM --  machine dependet constants needed before code gen
+OLR.OPB.Mod               # Oberon Portable build parse tree
+OLR.OPL.Mod               # Low level code generator RISC -> 80386
+OLR.OPM.Mod               # machine dependent constants
+OLR.OPP.Mod                # Oberon portable parser
+
+(* =========================================================================== *)
+0123456789-123456789-123456789-123456789-123456789-123456789-123456789-123456789-123456789-123456789-123456789-12
+0                10               20              30               40               50               60               70               80              90              100               112
+:file: END 2025-Jan

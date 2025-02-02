@@ -1,0 +1,184 @@
+MODULE qTest;
+IMPORT SYSTEM, Oberon, Files, T :=qTypes, Lib :=qLib, X :=qOberonX;
+
+
+
+(* ================================================== *)
+(* :chapter: STANDARD PROCEDURES TO BE IMPORTED IN OTHER MODULES *)
+PROCEDURE LF;   BEGIN Lib.LF      END LF;
+PROCEDURE lf;   BEGIN Lib.Lf      END lf;
+PROCEDURE lff;    BEGIN Lib.Lff  END lff;
+PROCEDURE spc;  BEGIN Lib.Spc  END spc;
+PROCEDURE ddx; BEGIN Lib.DDX   END ddx;
+
+PROCEDURE cprint (c: CHAR); BEGIN Lib.Char (c)  END cprint;
+PROCEDURE iprint (n, w: T.Int); BEGIN Lib.PrintInt (n,w) END iprint;
+PROCEDURE bprint (b: BOOLEAN); BEGIN Lib.Bool (b) END bprint;
+
+PROCEDURE print (mess: ARRAY OF CHAR); BEGIN Lib.Print (mess) END print;
+PROCEDURE chapter (mess: ARRAY OF CHAR); BEGIN Lib.Chapter (mess)  END chapter;
+PROCEDURE section (mess: ARRAY OF CHAR); BEGIN Lib.Section (mess)  END section;
+
+(* ================================================== *)
+PROCEDURE TestOberonX;
+VAR a: T.String;
+   l: T.Line;
+BEGIN
+   a := "This is a string!";
+    NEW (l, 128);
+    COPY ("This is an other string?", l^);
+   lf; print (a); print ("=>"); a := X.Upcase (a); print (a);
+   lf; print (l^); print ("=>"); l := X.UpcaseLine (l); print (l^);
+END TestOberonX;
+
+(* ================================================== *)
+PROCEDURE Cat*;
+CONST Filename = "qPlaintext.txt";
+VAR
+   a: ARRAY 8096 OF CHAR;
+   fd: Files.File;
+   rd: Files.Rider;
+   len, i: T.Int;
+   x: SYSTEM.BYTE;
+   c: CHAR;
+BEGIN
+   lf; print ("---  cat: "); print (Filename);  spc;
+    fd := Files.Old (Filename);
+   IF fd # NIL THEN
+      len := Files.Length (fd);
+      print ("len="); iprint (len, 0); 
+      Files.Set (rd, fd, 0);
+      i := 0;
+      lf;
+      WHILE i < len DO
+         Files.Read (rd, x);
+         c :=CHR (x);
+         cprint (c);
+         INC (i);
+      END;
+      print ("---  #"); lf;
+      Files.Close (fd);
+   ELSE print ("fd is NIL (no such file)")
+   END;
+   lf; 
+END Cat;
+
+
+(* ================================================== *)   
+(* guess: byte 3 to 6 of file hold header length  
+    hope: header is no longer than 256 * 256 bytes
+   * --> find byte 3, skip to header, write the rest
+   * translate 0D to 0A
+   * translate tab to spaces
+   * append 1 trailing 0A
+*)
+PROCEDURE DodoExport (rdIn, rdOut: Files.Rider; len: T.Int): BOOLEAN;
+CONST 
+   TabSize = 3;
+VAR 
+   cnt, headerLength, i: T.Int;
+   x,y: SYSTEM.BYTE;
+   c: CHAR;   
+   res: BOOLEAN;
+BEGIN
+   print ("  [");
+   IF len >= 3 THEN
+      Files.Read (rdIn, x);
+      Files.Read (rdIn, x);
+      Files.Read (rdIn, x);
+      Files.Read (rdIn, y);
+      headerLength := ORD (y) * 256 + ORD (x);
+      iprint (headerLength, 0); print ("header, ");
+      FOR i := 4 TO headerLength - 1 DO
+         Files.Read (rdIn, x);
+      END;
+      cnt :=0;
+      WHILE ~rdIn.eof DO
+         Files.Read (rdIn, x);
+         IF ~rdIn.eof THEN
+            c := CHR (x);
+            IF c = 0DX THEN Files.Write (rdOut, 0AX); INC (cnt)
+            ELSIF c = 09X THEN FOR i := 1 TO TabSize DO Files.Write (rdOut, 20X); INC (cnt) END
+            ELSE Files.Write (rdOut, x); INC (cnt)
+            END;
+         END;
+      END;
+      Files.Write (rdOut, 0AX);
+      INC (cnt);
+      iprint (cnt, 0); print ("bytes written");
+      res := TRUE;
+   ELSE print ("File too short."); res :=FALSE
+   END;
+   print ("]");
+   RETURN res;
+END DodoExport;
+
+PROCEDURE DoExport (obiname, unixname: ARRAY OF CHAR);
+VAR
+   fdIn, fdOut: Files.File;
+   rdIn, rdOut: Files.Rider;
+   len: T.Int;
+   res: BOOLEAN;
+BEGIN
+   lf; print ("   "); 
+   fdIn :=Files.Old (obiname);
+   IF fdIn # NIL THEN
+      Files.Set (rdIn, fdIn, 0);
+      len :=Files.Length (fdIn); 
+      print (obiname); spc;iprint (len, 0); print ("bytes  "); print ("=> ");print (unixname);
+      fdOut := Files.New (unixname);
+      IF fdOut # NIL THEN
+         Files.Set (rdOut, fdOut, 0);
+          res := DodoExport (rdIn, rdOut, len);
+         Files.Register (fdOut);
+         Files.Close (fdOut);
+         IF res THEN print (" OK")
+         ELSE print (" FAILED")
+         END;
+      ELSE print ("file 'New' failed: "); print (unixname);
+      END;
+      Files.Close (fdIn);
+   ELSE print ("###  No such infile: "); print (obiname);
+   END;
+END DoExport;
+
+PROCEDURE Export*;
+BEGIN
+   lf; print ("---  Export: ");
+   DoExport ("qNotes.Txt" ,  "qNotes.Txt.plain.txt");
+
+   DoExport ("qTest.Mod",          "qTest.Mod.plain.txt");
+   DoExport ("qTypes.Mod",        "qTypes.Mod.plain.txt");
+   DoExport ("qOberonX.Mod",   "qOberonX.Mod.plain.txt");
+   DoExport ("qLib.Mod",           "qLib.Mod.plain.txt");
+
+   lf; print ("---  done");
+   lf;
+END Export;
+
+
+(* ================================================== *)
+PROCEDURE Test*;
+VAR b: BOOLEAN;
+BEGIN
+   LF;
+   chapter ("qTest.Test");
+   Lib.ResetTestCnt;
+   Lib.Test (0, 7,7,"seven");
+   Lib.Test (0, 120, 100 + 20, "add");
+   Lib.Test (0, 122, 100 + 20, "add");
+   Lib.Test (0, 124, 100 + 20, "add");
+   Lib.Test (0, 125, 100 + 20 + 5, "add");
+   Lib.Test (0, 129, 100 + 20 + 9, "add");
+    TestOberonX;
+   Lib.PrintTestCnt;
+   lf; print ("--##--  time: "); iprint (Oberon.Time(), 0);
+END Test;
+
+
+(* ================================================== *)
+BEGIN
+
+(* ================================================== *)
+END qTest.   
+:file: 2025-Jan sts-q

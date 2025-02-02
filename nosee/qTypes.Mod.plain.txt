@@ -1,0 +1,9 @@
+MODULE qTypes;
+
+TYPE
+         Int* = LONGINT;
+         String* = ARRAY 128 OF CHAR;
+         Line* =POINTER TO ARRAY OF CHAR;
+
+
+END qTypes.

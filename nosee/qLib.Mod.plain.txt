@@ -1,0 +1,131 @@
+MODULE qLib;
+IMPORT  Out, T :=qTypes;
+
+CONST
+         TestCnt = 6;
+
+
+VAR
+         atLineStart: BOOLEAN;
+         testCnt*: T.Int;
+         
+(* ================================================== *)
+(* :chapter: ARRAY OF CHAR *)
+PROCEDURE Append* (VAR a: ARRAY OF CHAR; b: ARRAY OF CHAR);
+VAR i,j: T.Int;
+BEGIN
+   i := 0;
+   WHILE a[i] # 0X DO
+      INC (i)
+   END;
+   i := 0;
+   WHILE b[j] # 0X DO
+      a[i] :=b[j];
+      INC (i);
+      INC (j);
+   END;
+   a[i] :=0X;
+END Append;
+
+
+(* ================================================== *)
+(* :chapter: PRINT  from Out: Char Hex Int Ln String *)
+PROCEDURE Char* (c: CHAR);
+BEGIN
+   Out.Char (c);
+   atLineStart := FALSE;
+END Char;
+
+PROCEDURE LF*;
+BEGIN Out.Ln END LF;
+
+PROCEDURE Lf*; 
+BEGIN 
+   IF ~atLineStart THEN
+      LF;
+      atLineStart :=TRUE
+   END
+END Lf;
+
+PROCEDURE Lff*;
+BEGIN Lf; LF END Lff;
+
+PROCEDURE Spc*;
+BEGIN Char (" "); atLineStart := FALSE END Spc;
+
+PROCEDURE Print* (mess: ARRAY OF CHAR);
+BEGIN Out.String (mess); atLineStart := FALSE END Print;
+
+PROCEDURE DDX*;
+BEGIN Print ("[[[[ ") END DDX;
+
+PROCEDURE Bool* (b: BOOLEAN);
+BEGIN
+   IF b THEN
+      Print ("TRUE  ")
+   ELSE Print ("FALSE ")
+   END
+END Bool;
+
+PROCEDURE PrintInt* (n,width: T.Int);
+BEGIN Out.Int (n, width); atLineStart := FALSE; Spc; END PrintInt;
+
+PROCEDURE Chapter* (mess: ARRAY OF CHAR);
+BEGIN  
+   Lf; Print ("============  "); Print (mess); 
+   Lf;
+END Chapter;
+
+PROCEDURE Section* (mess: ARRAY OF CHAR);
+BEGIN  
+   Lf; Print ("------------  "); Print (mess); 
+   Lf;
+END Section;
+(* ================================================== *)
+(* :chapter: TEST *)
+PROCEDURE PrintTest (head: ARRAY OF CHAR; expect, got: T.Int; mess: ARRAY OF CHAR);
+BEGIN
+   Lf; Print (head); PrintInt (expect,12); PrintInt (got, 12); Print (mess);
+END PrintTest;
+
+PROCEDURE Test* (verbose, expect, got: T.Int; mess: ARRAY OF CHAR);
+VAR res: BOOLEAN;
+BEGIN
+   IF expect = got THEN
+      IF verbose = 1 THEN
+         PrintTest ("---  ok: ", expect, got, mess);
+      END
+   ELSE
+         PrintTest ("###  FAIL: ", expect, got, mess);
+   END; 
+   INC (testCnt);
+END Test;
+
+PROCEDURE ResetTestCnt*;
+BEGIN testCnt := 0 END ResetTestCnt;
+
+PROCEDURE PrintTestCnt*;
+BEGIN
+   Lf; Print ("---  ");  PrintInt (testCnt, 0); Print ("/ "); PrintInt (TestCnt,0); Print ("tests done");
+   Lf;
+END PrintTestCnt;
+
+(* ================================================== *)
+BEGIN
+   
+   atLineStart := TRUE;
+   testCnt := 0;
+
+(* ================================================== *)
+END qLib.
+
+(* ================================================== *)
+
+
+(* ================================================== *)
+
+
+(* ================================================== *)
+
+
+
