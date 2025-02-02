@@ -1,18 +1,18 @@
 ETH Oberon / Linux X86 2015-12-11
-StackOrg  FFFE4040
+StackOrg  FFF0F200
 08053EF8 Modules
 08051788 Files
 0804C0E8 Kernel
 080491B8 Linux0
-Heap growing:  08146000 09146000
+Heap growing:  08AE2000 09AE2000
 (GC 0ms CG)
 CmdLine: 1 ./olx
 OTRACE= not found
-08157008 System
-0815CA28 FileDir
-0815DE08 Objects
-08163A88 Display
-0816C7D8 Input
+08AF3008 System
+08AF8A28 FileDir
+08AF9E08 Objects
+08AFFA88 Display
+08B087D8 Input
 TERM=xterm-256color
 SSH_CONNECTION= not found
 XAUTHORITY=/home/heiko/.Xauthority
@@ -23,230 +23,132 @@ OHEIGHT=1350
 00000085 BIG-REQUESTS success
 OSHM= not found
 00000082 MIT-SHM success
-08172518 Fonts
+08B0E518 Fonts
 FontConv= not found
-081745F8 Viewers
-08176718 Reals
-08178098 Texts
-081802F8 Oberon
+08B105F8 Viewers
+08B12718 Reals
+08B14098 Texts
+08B1C2F8 Oberon
 Color= not found
 MB= not found
-081862B8 TextFrames
-0818D208 MenuViewers
-081980D8 Script
-0819D3E8 ScriptFrames
-081A7798 Styles
-081AC3D8 Printer
-081AE308 Pictures
-081B1188 Bitmaps
-081C3808 Out
-081C5148 Centronics
-081C5958 V24
+08B222B8 TextFrames
+08B29208 MenuViewers
+Syntax18.Scn.Fnt not present
+Syntax18.Scn.Fnt not present
+Missing: Syntax18.Scn.Fnt
+08B38418 Script
+08B3D728 ScriptFrames
+08B47AD8 Styles
+08B4C718 Printer
+08B4E648 Pictures
+08B514C8 Bitmaps
+08B63B48 Out
+08B65488 Centronics
+08B65C98 V24
 Default8.Scn.Fnt not present
 Warning: KeyState currently not implemented in Display.
-(GC 1ms CG)
-081D13A8 Edit
-(GC 0ms CG)
-081D6268 XCompiler
-081DC4D8 OPP
-081E77F8 OPT
-081EEE88 OPS
-081F1668 OPM
-081FAE58 OPB
-082057F8 OPA
-0820E1C8 OPV
-082150E8 OPL
-0823EDD8 OPO
-0824C7A8 OPC
-(GC 1ms CG)
-(GC 0ms CG)
-(GC 0ms CG)
-(GC 0ms CG)
-(GC 1ms CG)
-(GC 1ms CG)
-(GC 1ms CG)
-(GC 1ms CG)
-Modules: qTest not found
-082D02B8 qTest
-082D0A08 qLib
-082D21A8 qMyfirst
-082D2AD8 DayTime
-082D3D38 NetSystem
-082D8F88 NetBase
-082DA788 NetPorts
-082DB278 NetIP
-082DECA8 NetUDP
-082E0348 NetTCP
-082E60D8 NetDNS
-082F6D38 Strings
-082FC168 Dates
-082FFB78 In
-08301678 Hello
-(GC 2ms CG)
-(GC 2ms CG)
-(GC 1ms CG)
-(GC 1ms CG)
-(GC 1ms CG)
-(GC 2ms CG)
-(GC 1ms CG)
-(GC 2ms CG)
-(GC 2ms CG)
-(GC 1ms CG)
-(GC 1ms CG)
-(GC 0ms CG)
-(GC 1ms CG)
-(GC 1ms CG)
-(GC 0ms CG)
-(GC 0ms CG)
-Modules: System.Commands command not found
-Modules: System.Commands command not found
-Modules: System.Command command not found
-(GC 0ms CG)
-0825E458 XBrowser
-(GC 1ms CG)
-(GC 1ms CG)
-(GC 2ms CG)
-(GC 2ms CG)
-(GC 2ms CG)
-(GC 2ms CG)
-(GC 1ms CG)
-(GC 1ms CG)
-(GC 2ms CG)
-(GC 2ms CG)
-(GC 1ms CG)
-(GC 2ms CG)
-(GC 2ms CG)
-(GC 1ms CG)
-(GC 1ms CG)
-(GC 1ms CG)
-(GC 1ms CG)
-(GC 1ms CG)
-(GC 1ms CG)
-(GC 2ms CG)
-(GC 1ms CG)
-(GC 1ms CG)
-(GC 1ms CG)
-(GC 1ms CG)
-(GC 1ms CG)
-(GC 2ms CG)
-(GC 1ms CG)
-(GC 1ms CG)
-(GC 2ms CG)
-(GC 1ms CG)
-(GC 2ms CG)
-(GC 2ms CG)
-(GC 2ms CG)
-(GC 1ms CG)
-(GC 1ms CG)
-(GC 1ms CG)
-(GC 1ms CG)
-Modules: Edit.Tool command not found
-(GC 2ms CG)
-(GC 1ms CG)
-(GC 0ms CG)
-(GC 1ms CG)
-(GC 2ms CG)
-(GC 2ms CG)
-(GC 1ms CG)
-(GC 1ms CG)
-(GC 1ms CG)
-(GC 1ms CG)
-(GC 2ms CG)
-(GC 2ms CG)
-(GC 1ms CG)
-(GC 2ms CG)
-(GC 2ms CG)
-(GC 2ms CG)
-(GC 1ms CG)
-(GC 1ms CG)
-(GC 1ms CG)
-(GC 10ms CG)
-(GC 10ms CG)
-(GC 0ms CG)
-Modules: qTest not found
-Modules: qLib not found
-(GC 1ms CG)
-(GC 0ms CG)
-(GC 1ms CG)
-(GC 1ms CG)
-(GC 6ms CG)
-(GC 1ms CG)
-x86/qLib.Obj not present
-(GC 0ms CG)
-(GC 0ms CG)
-x86/qTest.Obj not present
-08292BE8 qTest
-082936F8 qLib
-(GC 1ms CG)
-(GC 1ms CG)
-(GC 1ms CG)
-(GC 1ms CG)
-(GC 1ms CG)
-(GC 2ms CG)
-(GC 40ms CG)
-(GC 1ms CG)
-(GC 1ms CG)
-(GC 1ms CG)
-(GC 1ms CG)
-(GC 1ms CG)
-(GC 1ms CG)
-(GC 1ms CG)
-(GC 1ms CG)
-(GC 1ms CG)
-(GC 1ms CG)
-(GC 1ms CG)
-(GC 2ms CG)
-(GC 1ms CG)
-(GC 1ms CG)
-(GC 1ms CG)
-(GC 0ms CG)
-(GC 1ms CG)
-(GC 1ms CG)
-(GC 1ms CG)
-(GC 1ms CG)
-(GC 1ms CG)
-(GC 1ms CG)
-(GC 0ms CG)
-(GC 0ms CG)
-(GC 1ms CG)
-(GC 10ms CG)
-(GC 1ms CG)
-(GC 1ms CG)
-(GC 1ms CG)
-(GC 1ms CG)
-(GC 10ms CG)
-(GC 1ms CG)
-(GC 9ms CG)
-(GC 0ms CG)
-Modules: qTest not found
-Modules: qLib not found
-(GC 1ms CG)
-(GC 1ms CG)
-(GC 0ms CG)
-(GC 1ms CG)
-(GC 9ms CG)
-(GC 10ms CG)
-(GC 1ms CG)
-x86/qLib.Obj not present
-(GC 1ms CG)
-(GC 0ms CG)
-x86/qTest.Obj not present
-08292928 qTest
-082937B8 qLib
-(GC 1ms CG)
-(GC 1ms CG)
-(GC 1ms CG)
-(GC 0ms CG)
 (GC 5ms CG)
+08B70C18 Edit
+(GC 0ms CG)
+08B753D8 EditTools
+08B7A1F8 Attributes
+08B7E4D8 Strings
+08B838E8 Dates
+08B875E8 Gadgets
+08B90B58 Display3
+08B99638 Effects
+08B9F4B8 Printer3
+08BA5418 Links
+(GC 0ms CG)
+08BAC548 Documents
+08BB12F8 TextGadgets
+08BBBCB8 TextGadgets0
+08BCE268 TextDocs
+08BD4438 Desktops
+08BDF208 Views
+(GC 0ms CG)
+Syntax22.Scn.Fnt not present
+Syntax22.Scn.Fnt not present
+Missing: Syntax22.Scn.Fnt
+(GC 0ms CG)
+(GC 0ms CG)
 (GC 1ms CG)
-x86/qLib.Obj not present
 (GC 1ms CG)
 (GC 0ms CG)
-x86/qTest.Obj not present
-08291458 qTest
-082936B8 qLib
+(GC 0ms CG)
+08BE94A8 XCompiler
+08BEF678 OPP
+08BFA998 OPT
+08C02028 OPS
+08C04788 OPM
+08C0DDF8 OPB
+08C18798 OPA
+08C21168 OPV
+08C28088 OPL
+08C51D78 OPO
+08C5F748 OPC
+(GC 0ms CG)
+(GC 0ms CG)
+(GC 0ms CG)
+(GC 0ms CG)
+(GC 0ms CG)
+(GC 1ms CG)
+(GC 1ms CG)
+(GC 1ms CG)
+(GC 2ms CG)
+(GC 2ms CG)
+(GC 2ms CG)
+(GC 1ms CG)
+(GC 0ms CG)
+(GC 2ms CG)
+08C9CF38 XBrowser
+(GC 2ms CG)
+(GC 1ms CG)
+(GC 2ms CG)
+(GC 1ms CG)
+(GC 2ms CG)
+(GC 2ms CG)
 (GC 2ms CG)
 (GC 1ms CG)
 (GC 1ms CG)
+Modules: qTest not found
+08CFAF98 qTest
+08CFB928 qTypes
+08CFBF98 qLib
+08CFCC68 qOberonX
+(GC 23ms CG)
+(GC 2ms CG)
+(GC 1ms CG)
+(GC 2ms CG)
+(GC 0ms CG)
+(GC 0ms CG)
+(GC 0ms CG)
+(GC 0ms CG)
+(GC 0ms CG)
+08CD8358 qTest
 (GC 1ms CG)
 (GC 1ms CG)
+(GC 1ms CG)
+08CEA458 qTest
+(GC 2ms CG)
+(GC 1ms CG)
+(GC 1ms CG)
+08CEB958 qTest
+(GC 2ms CG)
+(GC 1ms CG)
+(GC 0ms CG)
+08CEA1D8 qTest
+(GC 2ms CG)
+(GC 2ms CG)
+(GC 7ms CG)
+(GC 0ms CG)
+(GC 0ms CG)
+08CEB958 qTest
+(GC 1ms CG)
+(GC 1ms CG)
+08CEA1D8 qTest
+(GC 2ms CG)
+(GC 2ms CG)
+(GC 1ms CG)
+(GC 3ms CG)
+Closing Display.

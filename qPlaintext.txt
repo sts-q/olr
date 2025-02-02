@@ -1,0 +1,4 @@
+:file: qPlaintext.txt
+Hallo world file.
+Next line of file.
+:file: END
