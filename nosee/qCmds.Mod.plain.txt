@@ -1,0 +1,114 @@
+MODULE qCmds;
+IMPORT SYSTEM, Oberon, Files, Texts;
+
+VAR W: Texts.Writer;
+
+PROCEDURE print (a: ARRAY OF CHAR);
+BEGIN Texts.WriteString (W, a);
+END print;
+
+PROCEDURE iprint (n: LONGINT);
+BEGIN Texts.WriteInt (W, n,0); END iprint;
+
+PROCEDURE lf;
+BEGIN Texts.WriteLn (W); Texts.Append (Oberon.Log, W.buf) END lf;
+
+(* ================================================== *)   
+(* Export*  *)
+(* guess: byte 3 to 6 of file hold header length  
+    hope: header is no longer than 256 * 256 bytes
+   * --> find byte 3, skip to header, write the rest
+   * translate 0D to 0A
+   * translate tab to spaces
+   * append 1 trailing 0A
+*)
+PROCEDURE DodoExport (rdIn, rdOut: Files.Rider; len: LONGINT): BOOLEAN;
+CONST 
+   TabSize = 3;
+VAR 
+   cnt, headerLength, i: LONGINT;
+   x,y: SYSTEM.BYTE;
+   c: CHAR;   
+   res: BOOLEAN;
+BEGIN
+   print ("  [");
+   IF len >= 3 THEN
+      Files.Read (rdIn, x);
+      Files.Read (rdIn, x);
+      Files.Read (rdIn, x);
+      Files.Read (rdIn, y);
+      headerLength := ORD (y) * 256 + ORD (x);
+      iprint (headerLength); print ("header, ");
+      FOR i := 4 TO headerLength - 1 DO
+         Files.Read (rdIn, x);
+      END;
+      cnt :=0;
+      WHILE ~rdIn.eof DO
+         Files.Read (rdIn, x);
+         IF ~rdIn.eof THEN
+            c := CHR (x);
+            IF c = 0DX THEN Files.Write (rdOut, 0AX); INC (cnt)
+            ELSIF c = 09X THEN FOR i := 1 TO TabSize DO Files.Write (rdOut, 20X); INC (cnt) END
+            ELSE Files.Write (rdOut, x); INC (cnt)
+            END;
+         END;
+      END;
+      Files.Write (rdOut, 0AX);
+      INC (cnt);
+      iprint (cnt); print ("bytes written");
+      res := TRUE;
+   ELSE print ("File too short."); res :=FALSE
+   END;
+   print ("]");
+   RETURN res;
+END DodoExport;
+
+PROCEDURE DoExport (obiname, unixname: ARRAY OF CHAR);
+VAR
+   fdIn, fdOut: Files.File;
+   rdIn, rdOut: Files.Rider;
+   len: LONGINT;
+   res: BOOLEAN;
+BEGIN
+   lf; print ("   "); 
+   fdIn :=Files.Old (obiname);
+   IF fdIn # NIL THEN
+      Files.Set (rdIn, fdIn, 0);
+      len :=Files.Length (fdIn); 
+      print (obiname); print (" "); iprint (len); print ("bytes  "); print ("=> ");print (unixname);
+      fdOut := Files.New (unixname);
+      IF fdOut # NIL THEN
+         Files.Set (rdOut, fdOut, 0);
+          res := DodoExport (rdIn, rdOut, len);
+         Files.Register (fdOut);
+         Files.Close (fdOut);
+         IF res THEN print (" OK")
+         ELSE print (" FAILED")
+         END;
+      ELSE print ("file 'New' failed: "); print (unixname);
+      END;
+      Files.Close (fdIn);
+   ELSE print ("###  No such infile: "); print (obiname);
+   END;
+END DoExport;
+
+PROCEDURE Export*;
+BEGIN
+   lf; print ("---  qCmds.Export: ");
+   DoExport ("qNotes.Txt" ,  "qNotes.Txt.plain.txt");
+
+   DoExport ("qCmds.Mod",        "qCmds.Mod.plain.txt");
+   DoExport ("qTest.Mod",          "qTest.Mod.plain.txt");
+   DoExport ("qTypes.Mod",        "qTypes.Mod.plain.txt");
+   DoExport ("qOberonX.Mod",   "qOberonX.Mod.plain.txt");
+   DoExport ("qLib.Mod",           "qLib.Mod.plain.txt");
+
+   lf; print ("---  done");
+   lf;
+END Export;
+
+BEGIN
+
+   Texts.OpenWriter (W);
+
+END qCmds.
