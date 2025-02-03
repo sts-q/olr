@@ -17,6 +17,28 @@ BEGIN Texts.WriteInt (W, n,0); END iprint;
 PROCEDURE lf;
 BEGIN Texts.WriteLn (W); Texts.Append (Oberon.Log, W.buf) END lf;
 
+PROCEDURE WithSuffix (name: ARRAY OF CHAR): ARRAY OF CHAR;
+ VAR 
+    s, res: ARRAY 128 OF CHAR;
+    i,j: LONGINT;
+ BEGIN
+    s := ExportSuffix;
+    i := 0;
+    j := 0;
+    WHILE name[i] # 0X DO 
+       res[i] := name[i];
+       INC (i);
+    END;
+    WHILE s[j] # 0X DO
+       res[i] := s[j];
+       INC (i);
+       INC (j);
+    END;
+    res[i] := 0X;
+    RETURN res;
+ END WithSuffix;
+ 
+ 
 (* ================================================== *)   
 (* Export*  *)
 (* guess: byte 3 to 6 of file hold header length  
@@ -99,46 +121,23 @@ BEGIN
    END;
 END ExportProc;
 
-PROCEDURE WithSuffix (name: ARRAY OF CHAR): ARRAY OF CHAR;
- VAR 
-    s, res: ARRAY 128 OF CHAR;
-    i,j: LONGINT;
- BEGIN
-    s := ExportSuffix;
-    i := 0;
-    j := 0;
-    WHILE name[i] # 0X DO 
-       res[i] := name[i];
-       INC (i);
-    END;
-    WHILE s[j] # 0X DO
-       res[i] := s[j];
-       INC (i);
-       INC (j);
-    END;
-    res[i] := 0X;
-    RETURN res;
- END WithSuffix;
-
 PROCEDURE Export*;
 VAR name, as: ARRAY 256 OF CHAR;
 BEGIN
    lf; print ("---  qCmds.Export: ");
-   name := "qNotes.Txt";        ExportProc (name, WithSuffix(name));
-
-   ExportProc ("qCmds.Mod",        "qCmds.Mod.plain.txt");
-   ExportProc ("qTest.Mod",          "qTest.Mod.plain.txt");
-   ExportProc ("qTypes.Mod",        "qTypes.Mod.plain.txt");
-   ExportProc ("qOberonX.Mod",   "qOberonX.Mod.plain.txt");
-   ExportProc ("qLib.Mod",           "qLib.Mod.plain.txt");
-
+   name := "qNotes.Txt";          ExportProc (name, WithSuffix(name));
+   name := "qCmds.Mod";       ExportProc (name, WithSuffix(name));
+   name := "qTest.Mod";          ExportProc (name, WithSuffix(name));
+   name := "qTypes.Mod";        ExportProc (name, WithSuffix(name));
+   name := "qOberonX.Mod";   ExportProc (name, WithSuffix(name));
+   name := "qLib.Mod";            ExportProc (name, WithSuffix(name));
    lf; print ("---  done");
    lf;
 END Export;
 
-
+(* ## qCmds.Export ## *)
 (* ================================================== *)
-(* Import*  *)
+(* Import*     *)
 PROCEDURE DoImport (unixname, obiname: ARRAY OF CHAR);
 BEGIN
    lf; print ("   "); print (unixname); print (" => "); print (obiname);
