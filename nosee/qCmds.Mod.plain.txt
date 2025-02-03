@@ -1,8 +1,12 @@
 MODULE qCmds;
 IMPORT SYSTEM, Oberon, Files, Texts;
 
-VAR W: Texts.Writer;
+CONST
+      ExportSuffix = ".plain.txt";
 
+VAR 
+      W: Texts.Writer;
+(* ================================================== *)   
 PROCEDURE print (a: ARRAY OF CHAR);
 BEGIN Texts.WriteString (W, a);
 END print;
@@ -22,7 +26,10 @@ BEGIN Texts.WriteLn (W); Texts.Append (Oberon.Log, W.buf) END lf;
    * translate tab to spaces
    * append 1 trailing 0A
 *)
-PROCEDURE DodoExport (rdIn, rdOut: Files.Rider; len: LONGINT): BOOLEAN;
+(* Proc Export is the command, that does collect the arguments from here and there.
+   Proc ExportProc does the work of this command.
+*)
+PROCEDURE DoExport (rdIn, rdOut: Files.Rider; len: LONGINT): BOOLEAN;
 CONST 
    TabSize = 3;
 VAR 
@@ -61,9 +68,9 @@ BEGIN
    END;
    print ("]");
    RETURN res;
-END DodoExport;
+END DoExport;
 
-PROCEDURE DoExport (obiname, unixname: ARRAY OF CHAR);
+PROCEDURE ExportProc (obiname, unixname: ARRAY OF CHAR);
 VAR
    fdIn, fdOut: Files.File;
    rdIn, rdOut: Files.Rider;
@@ -79,7 +86,7 @@ BEGIN
       fdOut := Files.New (unixname);
       IF fdOut # NIL THEN
          Files.Set (rdOut, fdOut, 0);
-          res := DodoExport (rdIn, rdOut, len);
+          res := DoExport (rdIn, rdOut, len);
          Files.Register (fdOut);
          Files.Close (fdOut);
          IF res THEN print (" OK")
@@ -90,23 +97,63 @@ BEGIN
       Files.Close (fdIn);
    ELSE print ("###  No such infile: "); print (obiname);
    END;
-END DoExport;
+END ExportProc;
+
+PROCEDURE WithSuffix (name: ARRAY OF CHAR): ARRAY OF CHAR;
+ VAR 
+    s, res: ARRAY 128 OF CHAR;
+    i,j: LONGINT;
+ BEGIN
+    s := ExportSuffix;
+    i := 0;
+    j := 0;
+    WHILE name[i] # 0X DO 
+       res[i] := name[i];
+       INC (i);
+    END;
+    WHILE s[j] # 0X DO
+       res[i] := s[j];
+       INC (i);
+       INC (j);
+    END;
+    res[i] := 0X;
+    RETURN res;
+ END WithSuffix;
 
 PROCEDURE Export*;
+VAR name, as: ARRAY 256 OF CHAR;
 BEGIN
    lf; print ("---  qCmds.Export: ");
-   DoExport ("qNotes.Txt" ,  "qNotes.Txt.plain.txt");
+   name := "qNotes.Txt";        ExportProc (name, WithSuffix(name));
 
-   DoExport ("qCmds.Mod",        "qCmds.Mod.plain.txt");
-   DoExport ("qTest.Mod",          "qTest.Mod.plain.txt");
-   DoExport ("qTypes.Mod",        "qTypes.Mod.plain.txt");
-   DoExport ("qOberonX.Mod",   "qOberonX.Mod.plain.txt");
-   DoExport ("qLib.Mod",           "qLib.Mod.plain.txt");
+   ExportProc ("qCmds.Mod",        "qCmds.Mod.plain.txt");
+   ExportProc ("qTest.Mod",          "qTest.Mod.plain.txt");
+   ExportProc ("qTypes.Mod",        "qTypes.Mod.plain.txt");
+   ExportProc ("qOberonX.Mod",   "qOberonX.Mod.plain.txt");
+   ExportProc ("qLib.Mod",           "qLib.Mod.plain.txt");
 
    lf; print ("---  done");
    lf;
 END Export;
 
+
+(* ================================================== *)
+(* Import*  *)
+PROCEDURE DoImport (unixname, obiname: ARRAY OF CHAR);
+BEGIN
+   lf; print ("   "); print (unixname); print (" => "); print (obiname);
+END DoImport;
+
+PROCEDURE Import*;
+BEGIN
+   lf; print ("---  qCmds.Import: ");
+   DoImport ("qSome.plain.txt",  "qSome.Txt");
+   lf; print ("---  done");
+   lf;
+END Import;
+
+   
+(* ================================================== *)   
 BEGIN
 
    Texts.OpenWriter (W);

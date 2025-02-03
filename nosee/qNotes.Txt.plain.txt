@@ -1,9 +1,7 @@
 ## :file: qNotes.Txt
 =====================================================
 ## :section:      notes
-Lib                              atLineStart
 olr                              save all
-olr                              macro: free compile exec
 olr                              keybinding
 plaintext                       import / export
 host-clipboard                via xclip, symlink, plus-x
@@ -54,9 +52,13 @@ B2B1                        reload and exec
 ## :section:    mouse
 B3B1                           delete text
 B3B2                           copy text
+B2B3                           open file  (with Edit, so far)
 [delete-setMark-Recall]      copy text
 DragB1B2                      move viewer
 DragB1                         resize viewer
+scrollbar: B2B3            gg    begin-of-text
+scrollbar  B2B1            G    end-of-text
+ET-scrollbar   B3                    scroll line to bottom !!
 
 # ---------------------------------------------------
 ## :section:    command language
@@ -75,6 +77,10 @@ EditKeys.Definitions (^)   list macros
 ## :section: Configuration
 Edit.Mod
 CONST StandardMenu = "System.Close System.Copy ... Edit.Store"   # config commands of editor viewer
+Miscelleanous.Mod
+CONST StandardMenu = "System.Close System.Copy System.Grow  ... Edit.Store"  # config cmds system
+OLR.TextFrames.Mod
+CONST StandardMenu = "..."   # <-- this is it!
 
 
 (* =========================================================================== *)
@@ -101,7 +107,7 @@ Chapter5.Text               Programming in Oberon
 Chapter6.Text               Applications
 Chapter7.Text               Oberon X: extending Oberon to allow user defined operators
 Dim3Guide.Text
-ETGuide.Text
+ETGuide.Text                The ET Text Editing Package: with autoinden and not-saved-warning t!!  (1993)
 EditKeys.Text
 Feedback.Text
 GadgetsChanges.Text
