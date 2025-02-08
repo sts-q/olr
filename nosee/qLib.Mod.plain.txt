@@ -1,5 +1,7 @@
 MODULE qLib;
-IMPORT  Out, T :=qTypes;
+IMPORT SYSTEM, Oberon, Out, Files, Texts, T :=qTypes;
+
+(* ## ReadLine ## *)
 
 CONST
          TestCnt = 6;
@@ -15,10 +17,10 @@ PROCEDURE Append* (VAR a: ARRAY OF CHAR; b: ARRAY OF CHAR);
 VAR i,j: T.Int;
 BEGIN
    i := 0;
-   WHILE a[i] # 0X DO
+   WHILE a[i] # 0X DO   
       INC (i)
    END;
-   i := 0;
+   j := 0;
    WHILE b[j] # 0X DO
       a[i] :=b[j];
       INC (i);
@@ -27,6 +29,33 @@ BEGIN
    a[i] :=0X;
 END Append;
 
+PROCEDURE HasHead* (str, head: ARRAY OF CHAR): BOOLEAN;
+VAR
+   i: T.Int;
+   res: BOOLEAN;
+BEGIN
+   i := 0;
+   LOOP
+      IF (i + 1 = LEN (str)) OR (i + 1 = LEN (head)) THEN EXIT END;
+      IF (str[i] = 0X) OR (head[i] = 0X) THEN EXIT END;
+      IF (str[i] # head[i]) THEN EXIT END;
+      INC (i)
+   END;   
+   RETURN head[i] = 0X;
+END HasHead;
+
+PROCEDURE Tail* (VAR tail: ARRAY OF CHAR; s: ARRAY OF CHAR; start: T.Int);
+VAR i,j: T.Int;
+BEGIN
+   i := 0;
+   j := start;
+   WHILE (i < LEN (tail)) & (j < LEN (s)) DO
+      tail[i] := s[j];
+      INC (i);
+      INC (j);
+   END;
+   tail[i] := 0X;
+END Tail;
 
 (* ================================================== *)
 (* :chapter: PRINT  from Out: Char Hex Int Ln String *)
@@ -70,6 +99,9 @@ END Bool;
 PROCEDURE PrintInt* (n,width: T.Int);
 BEGIN Out.Int (n, width); atLineStart := FALSE; Spc; END PrintInt;
 
+PROCEDURE ValPrint* (name: ARRAY OF CHAR; n: T.Int);
+BEGIN Print (name); Print (":="); PrintInt (n,0) END ValPrint;
+
 PROCEDURE Chapter* (mess: ARRAY OF CHAR);
 BEGIN  
    Lf; Print ("============  "); Print (mess); 
@@ -81,6 +113,66 @@ BEGIN
    Lf; Print ("------------  "); Print (mess); 
    Lf;
 END Section;
+
+PROCEDURE Hello*;
+BEGIN
+   Lf; Print ("===HELLO======================================");
+   Lf;
+END Hello;
+
+PROCEDURE Done*;
+BEGIN
+   Lf; Print ("===DONE===");
+   Lf;
+END Done;
+
+PROCEDURE Errmess* (mess: ARRAY OF CHAR);
+BEGIN
+   Lf; Print ("#######  "); Print (mess);
+   Lf;
+END Errmess;
+
+(* ================================================== *)
+(* :chapter: FILES *)
+PROCEDURE SkipHeader* (VAR rd: Files.Rider; VAR fd: Files.File);
+VAR
+   bs: ARRAY 32 OF SYSTEM.BYTE;
+   hlen: T.Int;
+BEGIN
+   Lf; Print ("--- SkipHeader ");
+   Files.ReadBytes (rd, bs, 6);
+   IF rd.eof THEN
+      Files.Set (rd, fd, 0);
+      Print ("none")
+   ELSE
+      Print ("Maybe? ");
+      IF (CHR (bs[0]) = 0F0X) & (CHR (bs[1]) = 01X) THEN
+         hlen := ORD (bs[2]) + 256 * ORD (bs[3]);
+         PrintInt (hlen, 0);
+         Files.Set (rd, fd, hlen);
+         Print (" skipped!")
+      ELSE Print ("No!")
+      END
+   END;
+END SkipHeader;
+
+PROCEDURE ReadLine* (VAR line: ARRAY OF CHAR; VAR rd: Files.Rider);   (** Return line up to next 0D/0A  without trailing delimiter. *)
+VAR 
+   i: T.Int;
+   c: CHAR;
+BEGIN
+   i := 0;
+   LOOP
+      IF rd.eof THEN EXIT END;
+      IF i + 1 = LEN (line) THEN EXIT END;
+      Files.Read (rd, c);
+      IF (c = 0DX) OR (c = 0AX) THEN EXIT END;
+      line[i] := c;
+      INC (i)
+   END;
+   line[i] := 0X;
+END ReadLine;
+
 (* ================================================== *)
 (* :chapter: TEST *)
 PROCEDURE PrintTest (head: ARRAY OF CHAR; expect, got: T.Int; mess: ARRAY OF CHAR);
@@ -109,6 +201,38 @@ BEGIN
    Lf; Print ("---  ");  PrintInt (testCnt, 0); Print ("/ "); PrintInt (TestCnt,0); Print ("tests done");
    Lf;
 END PrintTestCnt;
+
+(* ================================================== *)
+PROCEDURE OpenScanner(VAR S: Texts.Scanner; text: Texts.Text; pos: LONGINT);
+CONST
+   Err = -1;
+BEGIN
+   S.line := 0;
+   IF text = NIL THEN 
+      S.class := Err
+   ELSE 
+      Texts.OpenReader(S, text, pos); 
+      Texts.Read(S, S.nextCh); 
+      S.class := Texts.Inval
+   END
+END OpenScanner;
+
+PROCEDURE ScanPara*(VAR S: Texts.Scanner);
+CONST
+   Err = -1;
+VAR text: Texts.Text;   beg, end, time: LONGINT;
+BEGIN
+   OpenScanner (S, Oberon.Par.text, Oberon.Par.pos); 
+   IF S.class = Err THEN Print ("err=-1" );Lf; RETURN END;   (* ### *)
+   Texts.Scan (S);
+   IF (S.class = Texts.Char) & (S.c = "^") OR (S.line > 0) THEN   (* check for selection *)
+      Print ("- check-for-selection"); Lf;
+      text := NIL; time := -1; Oberon.GetSelection(text, beg, end, time);
+      IF (text = NIL) OR (time = -1) THEN S.class := Texts.Inval; RETURN END;   (* ### *)
+      OpenScanner (S, text, beg); 
+      Texts.Scan(S)
+   END
+END ScanPara;
 
 (* ================================================== *)
 BEGIN

@@ -1,5 +1,8 @@
 MODULE qCmds;
 IMPORT SYSTEM, Oberon, Files, Texts;
+(** 
+   Should not import any of our own modules. They might not yet be available. 
+*)
 
 CONST
       ExportSuffix = ".plain.txt";
@@ -131,6 +134,7 @@ BEGIN
    name := "qTypes.Mod";        ExportProc (name, WithSuffix(name));
    name := "qOberonX.Mod";   ExportProc (name, WithSuffix(name));
    name := "qLib.Mod";            ExportProc (name, WithSuffix(name));
+   name := "ET.Mod";              ExportProc (name, WithSuffix(name));
    lf; print ("---  done");
    lf;
 END Export;

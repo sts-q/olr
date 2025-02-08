@@ -1,5 +1,22 @@
 MODULE qOberonX;
-IMPORT T :=qTypes;
+IMPORT SYSTEM, T :=qTypes, Fonts, Lib := qLib;
+TYPE 
+   DynArray* = ARRAY * OF CHAR;
+   OpenArray* = ARRAY OF CHAR;
+   
+PROCEDURE UpcaseDynArray* (a: DynArray): DynArray;
+VAR 
+   b: DynArray;
+   len,i: T.Int;
+BEGIN
+   len := LEN (a);
+   NEW (b, len);  
+   i := 0;
+   FOR i := 0 TO len - 1 DO
+      b[i] := CAP (a[i])
+   END;
+   RETURN b;
+END UpcaseDynArray;
 
 
 PROCEDURE Upcase* (a: T.String): T.String;
@@ -27,12 +44,79 @@ BEGIN
    END;
    RETURN a;
 END UpcaseLine;
-(*
-PROCEDURE "++" * (a,b: T.Line): T.Line;
+
+(* ============================================================= *)
+(* no forward needed *)
+PROCEDURE Foo (n: T.Int);
+BEGIN
+   Lib.Print ("foo "); Bar (n)
+END Foo;
+
+PROCEDURE MeProc*;
+BEGIN Lib.Print ("hi there..."); END MeProc;
+
+PROCEDURE Bar*(n: T.Int);
+BEGIN
+   Lib.Print ("bar "); Lib.PrintInt (n,0); 
+   IF n > 0 THEN
+      Foo (n - 1)
+   ELSE Lib.Print ("done")
+   END;
+   Lib.Lf;
+ END Bar;
+ 
+ (* ================================================= *)
+ (* operator overloading *)
+ PROCEDURE Add (n,m: T.Int): T.Int;
+ BEGIN RETURN n + m END Add;
+ 
+ (*  --- NO: multiply defined identifier  --- even so with only one arg (like SIN)
+PROCEDURE Add (c,d: CHAR): CHAR;
+ BEGIN RETURN "x" END Add;
+ 
+ PROCEDURE Next (c: CHAR): CHAR;
+ BEGIN RETURN "x" END Next;
+ *)
+
+ 
+ PROCEDURE AddCmd*;
+ BEGIN
+    Lib.PrintInt (Add (3,4), 0);
+    Lib.PrintInt (Add (30, 40),0);
+    Lib.PrintInt (Next (1000),0);
+ END AddCmd;
+ 
+ PROCEDURE Next (n: T.Int): T.Int;
+ BEGIN RETURN n + 1 END Next;
+ 
+
+PROCEDURE "+"* (a,b: T.Line): T.Line;
 VAR i,j: T.Int;
 BEGIN
    RETURN b;
-END "++";
-*)
+END "+";
+
+PROCEDURE "+"* (a,b: T.String): T.String;
+VAR res: T.String;
+   i,j: T.Int;
+BEGIN
+   i := 0;
+   WHILE (i < LEN (a)) & (a[i] # 0X) DO
+      res[i] := a[i];
+      INC (i);
+   END;
+   j := 0;
+   WHILE (i < LEN (res)) & (j < LEN (b)) & (b[j] # 0X) DO
+      res[i] := b[j];
+      INC (i);
+      INC (j);
+   END;
+   res[i] := 0X;   
+   RETURN res;
+END "+";
+
+
+
+ (* ================================================= *)
 
 END qOberonX.

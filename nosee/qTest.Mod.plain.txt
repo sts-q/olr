@@ -1,5 +1,5 @@
 MODULE qTest;
-IMPORT SYSTEM, Oberon, Files, T :=qTypes, Lib :=qLib, X :=qOberonX;
+IMPORT SYSTEM, Oberon, Files, Fonts, Display, XYplane, T :=qTypes, Lib :=qLib, X :=qOberonX;
 
 
 
@@ -13,6 +13,7 @@ PROCEDURE ddx; BEGIN Lib.DDX   END ddx;
 
 PROCEDURE cprint (c: CHAR); BEGIN Lib.Char (c)  END cprint;
 PROCEDURE iprint (n, w: T.Int); BEGIN Lib.PrintInt (n,w) END iprint;
+PROCEDURE vprint (name: ARRAY OF CHAR; n: T.Int); BEGIN Lib.ValPrint (name,n) END vprint;
 PROCEDURE bprint (b: BOOLEAN); BEGIN Lib.Bool (b) END bprint;
 
 PROCEDURE print (mess: ARRAY OF CHAR); BEGIN Lib.Print (mess) END print;
@@ -21,15 +22,46 @@ PROCEDURE section (mess: ARRAY OF CHAR); BEGIN Lib.Section (mess)  END section;
 
 (* ================================================== *)
 PROCEDURE TestOberonX;
-VAR a: T.String;
+VAR a, b, c: T.String;
    l: T.Line;
+   ad, bd: X.DynArray;
+   i: T.Int;
+   l1, l2, l3: T.Line;
 BEGIN
    a := "This is a string!";
     NEW (l, 128);
     COPY ("This is an other string?", l^);
    lf; print (a); print ("=>"); a := X.Upcase (a); print (a);
    lf; print (l^); print ("=>"); l := X.UpcaseLine (l); print (l^);
+   lf; NEW (ad, 32); ad[0] := "a"; ad[1] := "s"; ad[2] := "d"; ad[3] := 0X;  print ("=>"); bd := X.UpcaseDynArray (ad); 
+   lf; i := 0; WHILE ad[i] # 0X DO cprint (ad[i] ); INC (i) END;
+   lf; i := 0; WHILE bd[i] # 0X DO cprint (bd[i] ); INC (i) END;
+   lf; X.Bar (7);
+   lf; print ("add:  ");  X.AddCmd;
+   lf; NEW (l1, 32); NEW (l2, 32); COPY ("Hallo ", l1^);  COPY ("World!", l2);  print (l1^); print (l2^);  
+      l3 := l1 + l2; print ("=>"); print (l3^);
+   lf; COPY ("This is a string. ", a); COPY ("And a line of text. ", b); print (a); print (a); print ("=>");
+   c := a + b; print (c); print ("]");
 END TestOberonX;
+(* ================================================== *)
+PROCEDURE OpenTrack*;
+BEGIN
+   lf; print ("--- OpenTrack");
+   (* no good:   Oberon.OpenTrack (2000, 200);  *)
+   lf; print ("--- done");
+END OpenTrack;
+
+(* ================================================== *)
+PROCEDURE TestDisplay*;
+BEGIN
+   lf; print ("---  TestDisplay");
+   lf; vprint ("Bottom", Display.Bottom);
+   lf; vprint ("Height", Display.Height);  vprint ("Width", Display.Width);
+   lf; vprint ("Left", Display.Left);  vprint ("UBottom", Display.UBottom);
+   lf;vprint ("ColLeft", Display.ColLeft);
+   lf;print ("---  done");
+   lf;
+END TestDisplay;
 
 (* ================================================== *)
 PROCEDURE Cat*;
@@ -156,6 +188,32 @@ BEGIN
    lf;
 END Export;
 
+(* ================================================== *)
+PROCEDURE ShowC (name: ARRAY OF CHAR);
+VAR
+   dx, x, y, w, h: INTEGER;
+   pat: LONGINT;
+   ch: CHAR;
+   F: Fonts.Font;
+BEGIN
+   F := Fonts.This (name);
+   ch := "H";
+   Fonts.GetChar (F, ch, dx, x, y, w, h, pat);
+   lf; cprint (ch); spc; spc; vprint ("dx",dx);  spc; vprint ("x",x); vprint ("y",y); spc; vprint ("w",w); vprint ("h",h);
+   lf; print (name); print (":  "); vprint ("heigth", F.height); vprint ("minX", F.minX); vprint ("maxX", F.maxX); vprint ("minY", F.minY); vprint ("maxY", F.maxY);
+END ShowC;
+
+PROCEDURE AboutFonts*;
+CONST 
+   (* FontName = "Courier12.Scn.Fnt";  *)
+   FontName = "Oberon20.Scn.Fnt";
+BEGIN
+   lf; print ("---  AboutFonts");     
+   ShowC (FontName);
+   lf;print ("---  done");
+   lf;
+END AboutFonts;
+
 
 (* ================================================== *)
 PROCEDURE Test*;
@@ -175,6 +233,20 @@ BEGIN
    lf; print ("--##--  time: "); iprint (Oberon.Time(), 0);
 END Test;
 
+(* ================================================== *)
+PROCEDURE Draw*;
+VAR
+   i,j: INTEGER;
+BEGIN
+   lf; print ("--- qTest.Draw  ");
+   XYplane.Open;
+   XYplane.Clear;
+   FOR i := 0 TO 100 DO
+      FOR j :=0 TO 100 DO
+         XYplane.Dot (i, j, 1);
+      END
+   END
+END Draw;
 
 (* ================================================== *)
 BEGIN
