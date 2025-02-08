@@ -67,11 +67,9 @@ BEGIN
    IF len >= 3 THEN
       Files.Read (rdIn, x);
       Files.Read (rdIn, x);
-      Files.Read (rdIn, x);
-      Files.Read (rdIn, y);
-      headerLength := ORD (y) * 256 + ORD (x);
+      Files.ReadLInt (rdIn, headerLength);
       iprint (headerLength); print ("header, ");
-      FOR i := 4 TO headerLength - 1 DO
+      FOR i := 6 TO headerLength - 1 DO
          Files.Read (rdIn, x);
       END;
       cnt :=0;
